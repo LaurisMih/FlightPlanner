@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\FlightPlannerVisualStudio\\FlightPlanner.Net5\\FlightPlanner.Net5\\FlightPlanner.Net5.csproj": {}
+    "E:\\FlightPlanner\\FlightPlanner\\FlightPlannerFinal\\FlightPlanner.Net5\\FlightPlanner.Net5.csproj": {}
   },
   "projects": {
-    "E:\\FlightPlannerVisualStudio\\FlightPlanner.Net5\\FlightPlanner.Net5\\FlightPlanner.Net5.csproj": {
+    "E:\\FlightPlanner\\FlightPlanner\\FlightPlannerFinal\\FlightPlanner.Net5\\FlightPlanner.Net5.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\FlightPlannerVisualStudio\\FlightPlanner.Net5\\FlightPlanner.Net5\\FlightPlanner.Net5.csproj",
+        "projectUniqueName": "E:\\FlightPlanner\\FlightPlanner\\FlightPlannerFinal\\FlightPlanner.Net5\\FlightPlanner.Net5.csproj",
         "projectName": "FlightPlanner.Net5",
-        "projectPath": "E:\\FlightPlannerVisualStudio\\FlightPlanner.Net5\\FlightPlanner.Net5\\FlightPlanner.Net5.csproj",
+        "projectPath": "E:\\FlightPlanner\\FlightPlanner\\FlightPlannerFinal\\FlightPlanner.Net5\\FlightPlanner.Net5.csproj",
         "packagesPath": "C:\\Users\\Lauri\\.nuget\\packages\\",
-        "outputPath": "E:\\FlightPlannerVisualStudio\\FlightPlanner.Net5\\FlightPlanner.Net5\\obj\\",
+        "outputPath": "E:\\FlightPlanner\\FlightPlanner\\FlightPlannerFinal\\FlightPlanner.Net5\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

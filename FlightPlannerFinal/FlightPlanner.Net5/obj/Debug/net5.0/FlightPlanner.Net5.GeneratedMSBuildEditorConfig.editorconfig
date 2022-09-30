@@ -7,4 +7,4 @@ build_property.InvariantGlobalization =
 build_property.PlatformNeutralAssembly = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = FlightPlanner.Net5
-build_property.ProjectDir = E:\FlightPlannerVisualStudio\FlightPlanner.Net5\FlightPlanner.Net5\
+build_property.ProjectDir = E:\FlightPlanner\FlightPlanner\FlightPlannerFinal\FlightPlanner.Net5\
