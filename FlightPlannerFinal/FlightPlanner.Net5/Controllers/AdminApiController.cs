@@ -26,7 +26,7 @@ namespace FlightPlannerNet5.Controllers
             {
 
                 var flight = _context.Flights.Include(f => f.From).Include(f => f.To).FirstOrDefault(f => f.Id == id);
-               // var flight = FlightStorage.GetFlight(id, _context);
+               
                 if (flight == null)
                 {
                     return NotFound();
