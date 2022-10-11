@@ -6,6 +6,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using FlightPlanner.Net5.Filters;
 using Microsoft.AspNetCore.Authentication;
+using FlightPlanner.Net5;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlightPlannerNet5
 {
@@ -29,6 +31,10 @@ namespace FlightPlannerNet5
             });
             services.AddAuthentication("BasicAuthentication")
                 .AddScheme<AuthenticationSchemeOptions, BasicAuthorizationHandler>("BasicAuthentication", null);
+
+            services.AddDbContext<FlightPlannerDBContext>(options => options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")
+                ));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

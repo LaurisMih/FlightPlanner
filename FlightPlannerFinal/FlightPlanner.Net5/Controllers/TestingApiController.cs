@@ -8,11 +8,21 @@ namespace FlightPlannerNet5.Controllers
     [ApiController]
     public class TestingApiController : ControllerBase
     {
+        private readonly FlightPlannerDBContext _context;
+
+        public TestingApiController(FlightPlannerDBContext context)
+        {
+            _context = context;
+        }
+
         [HttpPost]
         [Route("clear")]
         public IActionResult Clear() 
         {
-            FlightStorage.Clear();           
+            //FlightStorage.Clear();
+            _context.RemoveRange(_context.Flights);
+            _context.RemoveRange(_context.Airports);
+            _context.SaveChanges();
             return Ok();
         }    
     }

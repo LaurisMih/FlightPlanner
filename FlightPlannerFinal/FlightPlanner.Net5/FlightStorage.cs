@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,16 +21,22 @@ namespace FlightPlannerNet5
             }
         }
 
-        public static Flight GetFlight(int id)
+        public static Flight GetFlight(int id, FlightPlannerDBContext context)
         {
-            return _flights.FirstOrDefault(x => x.Id == id);
+            var flight = context.Flights
+                .Include(x => x.From)
+                .Include(x => x.To)
+                .FirstOrDefault(x => x.Id == id);
+
+            return flight;
         }
 
-        public static bool ExistingFlight(Flight flight)
+        public static bool ExistingFlight(Flight flight, FlightPlannerDBContext context)
         {
             lock (_locker)
             {
-                foreach (Flight f in _flights)
+                foreach (Flight f in context.Flights.Include(x => x.From)
+                    .Include(x => x.To))
                 {
                     if (flight.ArrivalTime == f.ArrivalTime
                         && flight.DepartureTime == f.DepartureTime
@@ -75,11 +82,11 @@ namespace FlightPlannerNet5
             }       
         }
 
-        public static void DeleteFlightById(int id)
+        public static void DeleteFlightById(int id, FlightPlannerDBContext context)
         {
             lock (_locker)
             {
-                var flight = GetFlight(id);
+                var flight = GetFlight(id, context );
 
                 if (flight != null)
                 {
@@ -88,26 +95,26 @@ namespace FlightPlannerNet5
             }
         }
 
-        public static Airport[] GetAirport(string search)
-        {         
-                search = search.ToLower().Trim();
-                var fromAirports = _flights.Where(f => f.From.AirportName.ToLower().Trim().Contains(search)
-                                                       || f.From.City.ToLower().Trim().Contains(search)
-                                                       || f.From.Country.ToLower().Trim().Contains(search))
-                    .Select(a => a.From).ToArray();
-                var toAirports = _flights.Where(f => f.To.AirportName.ToLower().Trim().Contains(search)
-                                                     || f.To.City.ToLower().Trim().Contains(search)
-                                                     || f.To.Country.ToLower().Trim().Contains(search))
-                    .Select(f => f.To).ToArray();
+        public static Airport[] GetAirport(string search,FlightPlannerDBContext context)
+        {
+            search = search.ToLower().Trim();
+            var fromAirports = context.Flights.Where(f => f.From.AirportName.ToLower().Trim().Contains(search)
+                                                   || f.From.City.ToLower().Trim().Contains(search)
+                                                   || f.From.Country.ToLower().Trim().Contains(search))
+                .Select(a => a.From).ToArray();
+            var toAirports = context.Flights.Where(f => f.To.AirportName.ToLower().Trim().Contains(search)
+                                                 || f.To.City.ToLower().Trim().Contains(search)
+                                                 || f.To.Country.ToLower().Trim().Contains(search))
+                .Select(f => f.To).ToArray();
 
-                return fromAirports.Concat(toAirports).ToArray();                     
+            return fromAirports.Concat(toAirports).ToArray();
         }
 
-        public static PageResult SearchFlights(SearchFlightsRequest request)
+        public static PageResult SearchFlights(SearchFlightsRequest request, FlightPlannerDBContext context)
         {
             lock (_locker)
             {
-                var flights = _flights.Where(x => x.From.AirportName.Trim().ToLower() == request.From.Trim().ToLower()
+                var flights = context.Flights.Where(x => x.From.AirportName.Trim().ToLower() == request.From.Trim().ToLower()
                                                   && x.To.AirportName.Trim().ToLower() == request.To.Trim().ToLower()
                                                   && x.DepartureTime.Substring(0, 10) ==
                                                   request.DepartureDate).ToArray();
